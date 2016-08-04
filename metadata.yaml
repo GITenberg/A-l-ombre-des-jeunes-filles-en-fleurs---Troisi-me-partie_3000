@@ -1,0 +1,28 @@
+_repo: A-l-ombre-des-jeunes-filles-en-fleurs---Troisi-me-partie_3000
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Proust, Marcel
+    birthdate: 1871
+    deathdate: 1922
+    gutenberg_agent_id: '987'
+    url: http://www.gutenberg.org/2009/agents/987
+    wikipedia: http://en.wikipedia.org/wiki/Marcel_Proust
+description: A la recherche du temps perdu, Tome II
+gutenberg_bookshelf: FR Littérature
+gutenberg_issued: '2001-12-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '3000'
+language: fr
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'France -- Social life and customs -- 19th century -- Fiction'
+- !lcc 'PQ'
+- !lcsh 'Autobiographical fiction'
+- !lcsh 'Villages -- France -- Fiction'
+- GITenberg
+title: A l'ombre des jeunes filles en fleurs — Troisième partie
+url: http://www.gutenberg.org/ebooks/3000
