@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: pULwUo2t/Xgf8/f5gt5Wmf5m/k9h9up8R4dbnMs2FmHlLLzG7iZjzJ2XYB3z3eg6lkNZNVcj2PHTLE+pn0C53yKQaPFR0FL0YN6bIYbVc/ib3gTP89Vg+cleeL0RNgkKiD4HId9aJqDD/Z9DMv32hz+EG/FRjOyAJhJzE2myu4n79HoM3CZH8W1KM2nNRpdNoZ6N0M+rq8T0S4cd91o5bETcJEtSnkubLmft5duhgL6s8h9fYIyUWWjyRy8x0/gUc7uEAl6tHYaGV/TSM+ybVpiWU8XoXjpkCJBsjlAi9jiXDiBT3/r5+JKPTEE+Ky7H+BMgVZr8ZxLwfzG5/JIOPwC6/0toWkVsTwPttWaXv+6r/Lt+wLeqCf4jInDJbHnEk8F4Jzg9Fu/k1RBp7+j7b+LvQHrYbBBxsKaDk3vRC1R+VxyE4dLtHt5ClRVD4zqDqCqggwcm95i5jkcDsUwjgPCfP/LmeYRqrQCkxqKIzagXHUCToJ/U5dgxrVEhpZ15jCw4wvgfvZYhUrbDxmSgubJWoau5PyXH153E5FI/7l9qalmISCNBUmdJcrO4dPd73QbHy5+rIeiPVFwsSdprCKHL3FshYcDH6XCP+q1baKUdcR5mYBB29dP0u6uvHF46Ric586KjRCv02JvSFmv3ghTS8yebAi387UBAoc/rCE4=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/A-l-ombre-des-jeunes-filles-en-fleurs---Troisi-me-partie_3000
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
